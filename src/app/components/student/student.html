@@ -1,0 +1,14 @@
+
+<div class="row">
+    @for(student of students; track student.id) {    
+    <div class="card m-3" style="width: 25rem;">
+        <img class="card-img-top" [src]="student.photoUrl" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{student.name}}</h5>
+            <p class="card-text">{{student.age}} years old</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+}
+
+</div>

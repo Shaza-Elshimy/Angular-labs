@@ -57,3 +57,43 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## answer lab questions:-
+-------------------------
+
+1. SPA vs MPA
+
+SPA (Single Page Application): 
+-The whole website runs on a single page without reload, like Angular apps.
+
+MPA (Multi Page Application): 
+-Each page is loaded from the server and the page reloads every time.
+
+
+---
+
+2. MVC vs MVVM
+
+MVC: Model - View - Controller
+
+MVVM (used in Angular): Model - data View - HTML ViewModel - TypeScript
+
+---
+
+3. Component Files
+
+.ts → contains logic and code
+.html → user interface
+.css → styling
+.spec.ts → testing
+
+
+---
+
+4. Interpolation
+
+-Interpolation is a way to display data inside HTML using:
+
+Example:
+
+<h1>{{ student.name }}</h1>

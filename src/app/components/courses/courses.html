@@ -1,0 +1,34 @@
+<select class="form-select mb-4" [(ngModel)]="selectedCatId" #select (change)="+select.value">
+    <option value="0">All</option>
+    @for(cat of categories; track cat.catId){
+        <option [value]="cat.catId">{{cat.catName}}</option>
+    }
+    
+  </select>
+<div class="row">
+    @for(course of courses; track course.id) {    
+    @if(selectedCatId===0||course.catId==selectedCatId){
+    <div class="card m-3" style="width: 25rem;" [ngStyle]="{'background-color':course.seats<=2?'#ffe5e5':'white'}">
+        <img class="card-img-top" [src]="course.image" alt="Card image cap">
+        <div class="card-body"  [ngClass]="{'text-danger':course.seats===0}" >
+            <h5 class="card-title">{{course.title}}</h5>
+            <p class="card-text">{{course.instructor}}</p>
+            <p class="card-text">${{course.price}}$</p>
+            @if(course.seats===0){
+                <p>Course Full</p>
+            }
+            @else if (course.seats<=2) {
+                <p>Almost Full</p>
+            }
+            @else if (course.seats>2) {
+                 <p class="card-text">{{course.seats}} seats available</p>
+            }
+           
+            <p class="card-text">Category: {{course.category}}</p>
+            <button class="btn btn-primary" [disabled]="course.seats===0"( click)="register(course)">Register</button>
+        </div>
+    </div>
+}
+}
+
+</div>
