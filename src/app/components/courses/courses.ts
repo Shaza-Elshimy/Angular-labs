@@ -4,11 +4,12 @@ import { CommonModule, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ICategory } from '../../models/icategory';
 import { DiscountPipe } from '../../pipes/discount-pipe';
+import { AppDisableAfterClick } from "../../directives/app-disable-after-click";
 
 
 @Component({
   selector: 'app-courses',
-  imports: [NgClass,CommonModule,FormsModule,NgStyle,DiscountPipe],
+  imports: [NgClass, CommonModule, FormsModule, NgStyle, DiscountPipe, AppDisableAfterClick],
   templateUrl: './courses.html',
   styleUrls: ['./courses.css'],
 })
