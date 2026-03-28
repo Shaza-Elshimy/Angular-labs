@@ -3,11 +3,12 @@ import { ICourse } from '../../models/icourse';
 import { CommonModule, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ICategory } from '../../models/icategory';
+import { DiscountPipe } from '../../pipes/discount-pipe';
 
 
 @Component({
   selector: 'app-courses',
-  imports: [NgClass,CommonModule,FormsModule,NgStyle],
+  imports: [NgClass,CommonModule,FormsModule,NgStyle,DiscountPipe],
   templateUrl: './courses.html',
   styleUrls: ['./courses.css'],
 })

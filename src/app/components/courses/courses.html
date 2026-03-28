@@ -13,7 +13,7 @@
         <div class="card-body"  [ngClass]="{'text-danger':course.seats===0}" >
             <h5 class="card-title">{{course.title}}</h5>
             <p class="card-text">{{course.instructor}}</p>
-            <p class="card-text">${{course.price}}$</p>
+            <p class="card-text">${{course.price|discount}}$</p>
             @if(course.seats===0){
                 <p>Course Full</p>
             }
