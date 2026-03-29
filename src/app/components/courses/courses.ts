@@ -123,10 +123,17 @@ export class Courses {
     category:'business'
   }
 ];
-
+filteredCourses:ICourse[]=this.courses
 register(course:ICourse){
   if(course.seats>0){
     course.seats--;
+  }
+}
+filterCourses(){
+  if(this.selectedCatId==0){
+    this.filteredCourses=this.courses
+  }else{
+    this.filteredCourses=this.courses.filter((c)=>c.catId==this.selectedCatId)
   }
 }
 }
