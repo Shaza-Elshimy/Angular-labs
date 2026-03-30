@@ -18,4 +18,8 @@ export class CoursesContainer {
   { catId: 3, catName: 'Marketing' },
   { catId: 4, catName: 'Business' }
 ];
+
+setTotal(receivedtotal:number){
+  this.total=receivedtotal;
+}
 }

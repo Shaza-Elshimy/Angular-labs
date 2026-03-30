@@ -1,4 +1,4 @@
-import { Component ,Input, OnChanges} from '@angular/core';
+import { Component ,EventEmitter,Input,Output, OnChanges} from '@angular/core';
 import { ICourse } from '../../models/icourse';
 import { CommonModule, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,12 +14,16 @@ import { AppDisableAfterClick } from "../../directives/app-disable-after-click";
   styleUrls: ['./courses.css'],
 })
 export class Courses implements OnChanges{
+  @Input('sentSelectedCatId') receivedCatId:number=0;
+  @Output() onTotalChanged:EventEmitter<number>=new EventEmitter<number>();
+
   selectedCatId:number=0;
+  totalPrice:number=0;
 
   ngOnChanges(): void {
     this.filterCourses()
   }
-  
+
   categories:ICategory[] = [
   { catId: 1, catName: 'Programming' },
   { catId: 2, catName: 'Design' },
@@ -129,19 +133,22 @@ export class Courses implements OnChanges{
   }
 ];
 
-@Input('sentSelectedCatId') receivedCatId:number=0;
+  filteredCourses: ICourse[] = this.courses;
 
-filteredCourses:ICourse[]=this.courses
-register(course:ICourse){
-  if(course.seats>0){
-    course.seats--;
+  register(course:ICourse){
+    if(course.seats>0){
+      course.seats--;
+      this.totalPrice += course.price;
+      //fire event
+      this.onTotalChanged.emit(this.totalPrice);
+    }
   }
-}
-filterCourses(){
-  if(this.receivedCatId==0){
-    this.filteredCourses=this.courses
-  }else{
-    this.filteredCourses=this.courses.filter((c)=>c.catId==this.receivedCatId)
+
+  filterCourses(){
+    if(this.receivedCatId==0){
+      this.filteredCourses=this.courses
+    }else{
+      this.filteredCourses=this.courses.filter((c)=>c.catId==this.receivedCatId)
+    }
   }
-}
 }

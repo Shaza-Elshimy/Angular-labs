@@ -1,3 +1,4 @@
+<h1>Total Price : {{total}}</h1>
 <select class="form-select mb-4" [(ngModel)]="selectedCatId">
     <option [value]="0">All</option>
     @for(cat of categories; track cat.catId){
@@ -5,4 +6,4 @@
     }
     
 </select>
-<app-courses [sentSelectedCatId]="selectedCatId"></app-courses>
+<app-courses [sentSelectedCatId]="selectedCatId" (onTotalChanged)="setTotal($event)"></app-courses>
