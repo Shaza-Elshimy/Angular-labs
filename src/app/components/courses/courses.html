@@ -1,10 +1,3 @@
-<select class="form-select mb-4" [(ngModel)]="selectedCatId" (change)=filterCourses()>
-    <option [value]="0">All</option>
-    @for(cat of categories; track cat.catId){
-        <option [value]="cat.catId">{{cat.catName}}</option>
-    }
-    
-  </select>
 <div class="row">
     @for(course of filteredCourses; track course.id) {    
     <div class="card m-3" style="width: 25rem;" [ngStyle]="{'background-color':course.seats<=2?'#ffe5e5':'white'}">

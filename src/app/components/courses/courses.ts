@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,Input, OnChanges} from '@angular/core';
 import { ICourse } from '../../models/icourse';
 import { CommonModule, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,8 +13,13 @@ import { AppDisableAfterClick } from "../../directives/app-disable-after-click";
   templateUrl: './courses.html',
   styleUrls: ['./courses.css'],
 })
-export class Courses {
+export class Courses implements OnChanges{
   selectedCatId:number=0;
+
+  ngOnChanges(): void {
+    this.filterCourses()
+  }
+  
   categories:ICategory[] = [
   { catId: 1, catName: 'Programming' },
   { catId: 2, catName: 'Design' },
@@ -123,6 +128,9 @@ export class Courses {
     category:'business'
   }
 ];
+
+@Input('sentSelectedCatId') receivedCatId:number=0;
+
 filteredCourses:ICourse[]=this.courses
 register(course:ICourse){
   if(course.seats>0){
@@ -130,10 +138,10 @@ register(course:ICourse){
   }
 }
 filterCourses(){
-  if(this.selectedCatId==0){
+  if(this.receivedCatId==0){
     this.filteredCourses=this.courses
   }else{
-    this.filteredCourses=this.courses.filter((c)=>c.catId==this.selectedCatId)
+    this.filteredCourses=this.courses.filter((c)=>c.catId==this.receivedCatId)
   }
 }
 }

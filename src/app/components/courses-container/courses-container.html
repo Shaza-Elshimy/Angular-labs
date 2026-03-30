@@ -1,0 +1,8 @@
+<select class="form-select mb-4" [(ngModel)]="selectedCatId">
+    <option [value]="0">All</option>
+    @for(cat of categories; track cat.catId){
+        <option [value]="cat.catId">{{cat.catName}}</option>
+    }
+    
+</select>
+<app-courses [sentSelectedCatId]="selectedCatId"></app-courses>
