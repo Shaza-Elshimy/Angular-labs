@@ -1,0 +1,14 @@
+@if(course){
+    <div class="card m-3" style="width: 25rem;">
+        <img class="card-img-top" [src]="course.image" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{course.title}}</h5>
+            <p class="card-text">{{course.instructor}}</p>
+            <p class="card-text">${{course.price}}</p>
+            <p class="card-text">Seats Available: {{course.seats}}</p>
+            <p class="card-text">Category: {{course.category}}</p>
+        </div>
+    </div>
+}@else{
+    <p>Course not found</p>
+}

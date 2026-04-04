@@ -17,8 +17,9 @@
             }
            
             <p class="card-text">Category: {{course.category}}</p>
-            <button class="btn btn-primary" [disabled]="course.seats===0" (click)="register(course)">Register</button>
-             <button class="btn btn-primary" appAppDisableAfterClick>Click Me</button>
+            <button class="btn btn-primary m-2" [disabled]="course.seats===0" (click)="register(course)">Register</button>
+             <button class="btn btn-primary m-2" appAppDisableAfterClick>Click Me</button>
+             <button class="btn btn-primary m-2" (click)="navigateToDetails(course.id)">View Details</button>
         </div>
     </div>
 }

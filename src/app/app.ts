@@ -7,7 +7,6 @@ import { Navbar } from './components/navbar/navbar';
 import { ContactUs } from './components/contact-us/contact-us';
 import { NotFound } from './components/not-found/not-found';
 
-
 @Component({
   selector: 'app-root',
   imports: [Home, Footer,Navbar,AboutAs,ContactUs,NotFound, RouterModule],

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { DiscountPipe } from '../../pipes/discount-pipe';
 import { AppDisableAfterClick } from "../../directives/app-disable-after-click";
 import { CoursesService } from '../../services/courses';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -19,8 +20,8 @@ export class Courses implements OnChanges{
   courses: ICourse[];
   filteredCourses: ICourse[];
 
-  constructor(private CoursesService:CoursesService){
-    this.courses=this.CoursesService.getAllCourses();
+  constructor(private coursesService:CoursesService, private router: Router){
+    this.courses=this.coursesService.getAllCourses();
     this.filteredCourses =this.courses;
   }
 
@@ -44,7 +45,10 @@ export class Courses implements OnChanges{
     if(this.receivedCatId==0){
       this.filteredCourses=this.courses;
     }else{
-      this.filteredCourses = this.CoursesService.getCoursesByCatId(this.receivedCatId);
+      this.filteredCourses = this.coursesService.getCoursesByCatId(this.receivedCatId);
     }
+  }
+  navigateToDetails(id:number){
+    this.router.navigateByUrl(`/details/${id}`);
   }
 }
