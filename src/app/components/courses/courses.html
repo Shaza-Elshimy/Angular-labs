@@ -1,5 +1,5 @@
 <div class="row">
-    @for(course of filteredCourses; track course.id) {    
+    @for(course of filteredCourses(); track course.id) {    
     <div class="card m-3" style="width: 25rem;" [ngStyle]="{'background-color':course.seats<=2?'#ffe5e5':'white'}">
         <img class="card-img-top" [src]="course.image" alt="Card image cap">
         <div class="card-body"  [ngClass]="{'text-danger':course.seats===0}" >

@@ -1,5 +1,5 @@
-import { Categories } from '../../services/categories';
-import { Component, inject } from '@angular/core';
+import { ApiCategories } from './../../services/api-categories';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ICategory } from '../../models/icategory';
 import { Courses } from "../courses/courses";
@@ -10,12 +10,23 @@ import { Courses } from "../courses/courses";
   templateUrl: './courses-container.html',
   styleUrl: './courses-container.css',
 })
-export class CoursesContainer {
+export class CoursesContainer implements OnInit {
+
   selectedCatId: number = 0;
   total: number = 0;
 
-  private categoriesService = inject(Categories);
-  categories: ICategory[] = this.categoriesService.getAllCategories();
+  private apiCategories = inject(ApiCategories);
+
+  categories: ICategory[] = [];
+
+  ngOnInit(): void {
+    this.apiCategories.getAllCategories().subscribe((res) => {
+      this.categories = res.map((cat: any) => ({
+        catId: Number(cat.catId ?? cat.caId ?? 0),
+        catName: cat.catName,
+      }));
+    });
+  }
 
   setTotal(receivedtotal: number): void {
     this.total = receivedtotal;

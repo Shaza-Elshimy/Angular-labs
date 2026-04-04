@@ -1,10 +1,20 @@
-import { Component ,EventEmitter,Input,Output, OnChanges} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  OnInit,
+  signal
+} from '@angular/core';
+
 import { ICourse } from '../../models/icourse';
 import { CommonModule, NgClass, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DiscountPipe } from '../../pipes/discount-pipe';
 import { AppDisableAfterClick } from "../../directives/app-disable-after-click";
-import { CoursesService } from '../../services/courses';
+import { ApiCourses } from '../../services/api-courses';
+import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,42 +23,69 @@ import { Router } from '@angular/router';
   templateUrl: './courses.html',
   styleUrls: ['./courses.css'],
 })
-export class Courses implements OnChanges{
-  @Input('sentSelectedCatId') receivedCatId:number=0;
-  @Output() onTotalChanged:EventEmitter<number>=new EventEmitter<number>();
+export class Courses implements OnChanges, OnInit {
 
-  courses: ICourse[];
-  filteredCourses: ICourse[];
+  private router = inject(Router);
+  private apiCoursesService = inject(ApiCourses);
 
-  constructor(private coursesService:CoursesService, private router: Router){
-    this.courses=this.coursesService.getAllCourses();
-    this.filteredCourses =this.courses;
+  @Input() receivedCatId: number = 0;
+  @Output() onTotalChanged = new EventEmitter<number>();
+
+  courses = signal<ICourse[]>([]);
+  filteredCourses = signal<ICourse[]>([]);
+
+  totalPrice: number = 0;
+
+  ngOnInit(): void {
+    this.apiCoursesService.getAllCourses().subscribe((res) => {
+      this.courses.set(res);
+      this.filterCourses();
+    });
   }
-
-  selectedCatId:number=0;
-  totalPrice:number=0;
 
   ngOnChanges(): void {
-    this.filterCourses();
+    const selectedCatId = Number(this.receivedCatId);
+
+    if (selectedCatId === 0) {
+      this.filterCourses();
+      return;
+    }
+
+    this.apiCoursesService.getCoursesByCatId(selectedCatId).subscribe((res) => {
+      this.filteredCourses.set(res);
+    });
   }
 
-  register(course:ICourse){
-    if(course.seats>0){
-      course.seats--;
+  filterCourses() {
+    const selectedCatId = Number(this.receivedCatId);
+
+    if (selectedCatId === 0) {
+      this.filteredCourses.set(this.courses());
+      return;
+    }
+
+    this.filteredCourses.set(
+      this.courses().filter((course) => Number(course.catId) === selectedCatId)
+    );
+  }
+
+  register(course: ICourse) {
+    if (course.seats > 0) {
       this.totalPrice += course.price;
-      //fire event
       this.onTotalChanged.emit(this.totalPrice);
+
+      // تحديث UI
+      this.filteredCourses.update(courses =>
+        courses.map(c =>
+          c.id === course.id
+            ? { ...c, seats: c.seats - 1 }
+            : c
+        )
+      );
     }
   }
 
-  filterCourses(){
-    if(this.receivedCatId==0){
-      this.filteredCourses=this.courses;
-    }else{
-      this.filteredCourses = this.coursesService.getCoursesByCatId(this.receivedCatId);
-    }
-  }
-  navigateToDetails(id:number){
+  navigateToDetails(id: number) {
     this.router.navigateByUrl(`/details/${id}`);
   }
 }
