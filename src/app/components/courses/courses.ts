@@ -85,7 +85,7 @@ export class Courses implements OnChanges, OnInit {
     }
   }
 
-  navigateToDetails(id: number) {
+  navigateToDetails(id: number | string) {
     this.router.navigateByUrl(`/details/${id}`);
   }
 }

@@ -9,7 +9,7 @@ export class CoursesService {
   private total = 0;
   private courses: ICourse[] = [
     {
-      id: 1,
+      id: "1",
       title: 'Angular Basics',
       instructor: 'Mona',
       price: 100,
@@ -19,7 +19,7 @@ export class CoursesService {
       category:'programing'
     },
     {
-      id: 2,
+      id: "2",
       title: 'Advanced Angular',
       instructor: 'Mona',
       price: 200,
@@ -29,7 +29,7 @@ export class CoursesService {
       category:'programing'
     },
     {
-      id: 3,
+      id: "3",
       title: 'React Fundamentals',
       instructor: 'Ahmed',
       price: 120,
@@ -39,7 +39,7 @@ export class CoursesService {
       category:'programing'
     },
     {
-      id: 4,
+      id: "4",
       title: 'UI Design',
       instructor: 'Sara',
       price: 150,
@@ -49,7 +49,7 @@ export class CoursesService {
       category:'design'
     },
     {
-      id: 5,
+      id: "5",
       title: 'UX Principles',
       instructor: 'Laila',
       price: 130,
@@ -59,7 +59,7 @@ export class CoursesService {
       category:'design'
     },
     {
-      id: 6,
+      id: "6",
       title: 'Digital Marketing',
       instructor: 'Omar',
       price: 110,
@@ -69,7 +69,7 @@ export class CoursesService {
           category:'Marketing'
     },
     {
-      id: 7,
+      id: "7",
       title: 'SEO Basics',
       instructor: 'Ali',
       price: 90,
@@ -79,7 +79,7 @@ export class CoursesService {
       category:'marketing'
     },
     {
-      id: 8,
+      id: "8",
       title: 'Business Strategy',
       instructor: 'Hassan',
       price: 180,
@@ -89,7 +89,7 @@ export class CoursesService {
       category:'business'
     },
     {
-      id: 9,
+      id: "9",
       title: 'Startup Management',
       instructor: 'Nour',
       price: 170,
@@ -99,7 +99,7 @@ export class CoursesService {
       category:'business'
     },
     {
-      id: 10,
+      id: "10",
       title: 'Project Management',
       instructor: 'Karim',
       price: 140,
@@ -119,7 +119,7 @@ export class CoursesService {
     return this.courses.filter((c)=>c.catId==catId)
   }
 
-  register(courseId:number){
+  register(courseId:string){
     const course = this.getCourseById(courseId);
     if(course && course.seats>0){
       course.seats--;
@@ -128,7 +128,7 @@ export class CoursesService {
     return this.total;
   }
 
-  getCourseById(courseId:number):ICourse|undefined{
+  getCourseById(courseId: string):ICourse|undefined{
     return this.courses.find((c)=>c.id==courseId)
   }
 }

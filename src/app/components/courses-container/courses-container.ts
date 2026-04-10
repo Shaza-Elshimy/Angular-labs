@@ -3,7 +3,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ICategory } from '../../models/icategory';
 import { Courses } from "../courses/courses";
-
 @Component({
   selector: 'app-courses-container',
   imports: [Courses, FormsModule],
@@ -22,7 +21,7 @@ export class CoursesContainer implements OnInit {
   ngOnInit(): void {
     this.apiCategories.getAllCategories().subscribe((res) => {
       this.categories = res.map((cat: any) => ({
-        catId: Number(cat.catId ?? cat.caId ?? 0),
+        catId: Number(cat.catId ?? cat.id ?? 0),
         catName: cat.catName,
       }));
     });

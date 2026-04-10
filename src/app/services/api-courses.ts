@@ -18,7 +18,7 @@ export class ApiCourses {
     return this.httpClient.get<ICourse[]>(`${this.apiUrl}?catId=${catId}`);
   }
 
-  getCourseById(id:number):Observable<ICourse>{
+  getCourseById(id:string):Observable<ICourse>{
     return this.httpClient.get<ICourse>(`${this.apiUrl}/${id}`);
   }
 
