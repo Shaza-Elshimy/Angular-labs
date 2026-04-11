@@ -1,3 +1,7 @@
+<div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-success" (click)="navigateToAddCourse()">Add Course</button>
+</div>
+
 <div class="row">
     @for(course of filteredCourses(); track course.id) {    
     <div class="card m-3" style="width: 25rem;" [ngStyle]="{'background-color':course.seats<=2?'#ffe5e5':'white'}">
@@ -19,7 +23,9 @@
             <p class="card-text">Category: {{course.category}}</p>
             <button class="btn btn-primary m-2" [disabled]="course.seats===0" (click)="register(course)">Register</button>
              <button class="btn btn-primary m-2" appAppDisableAfterClick>Click Me</button>
-             <button class="btn btn-primary m-2" (click)="navigateToDetails(course.id)">View Details</button>
+             <button class="btn btn-info m-2" (click)="navigateToDetails(course.id)">View Details</button>
+             <button class="btn btn-warning m-2" (click)="navigateToEditCourse(course.id)">Edit</button>
+             <button class="btn btn-danger m-2" (click)="deleteCourse(course.id)">Delete</button>
         </div>
     </div>
 }

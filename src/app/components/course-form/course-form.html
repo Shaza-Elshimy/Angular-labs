@@ -1,0 +1,95 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="mb-4">{{ isEditMode ? 'Edit Course' : 'Add Course' }}</h2>
+
+      @if(errorMessage){
+        <div class="alert alert-danger">{{ errorMessage }}</div>
+      }
+
+      <form #courseForm="ngForm" (ngSubmit)="saveCourse()">
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            [(ngModel)]="course.title"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Instructor</label>
+          <input
+            type="text"
+            class="form-control"
+            name="instructor"
+            [(ngModel)]="course.instructor"
+            required
+          />
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Price</label>
+            <input
+              type="number"
+              class="form-control"
+              name="price"
+              [(ngModel)]="course.price"
+              required
+              min="0"
+            />
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Seats</label>
+            <input
+              type="number"
+              class="form-control"
+              name="seats"
+              [(ngModel)]="course.seats"
+              required
+              min="0"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Image URL</label>
+          <input
+            type="text"
+            class="form-control"
+            name="image"
+            [(ngModel)]="course.image"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <select
+            class="form-select"
+            name="catId"
+            [(ngModel)]="course.catId"
+            (ngModelChange)="onCategoryChange()"
+            required
+          >
+            <option [ngValue]="0" disabled>Select category</option>
+            @for(cat of categories; track cat.catId) {
+              <option [ngValue]="cat.catId">{{ cat.catName }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-success" type="submit" [disabled]="courseForm.invalid">
+            {{ isEditMode ? 'Update Course' : 'Add Course' }}
+          </button>
+          <a class="btn btn-outline-secondary" routerLink="/home">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

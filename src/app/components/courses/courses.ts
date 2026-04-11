@@ -37,10 +37,7 @@ export class Courses implements OnChanges, OnInit {
   totalPrice: number = 0;
 
   ngOnInit(): void {
-    this.apiCoursesService.getAllCourses().subscribe((res) => {
-      this.courses.set(res);
-      this.filterCourses();
-    });
+    this.loadCourses();
   }
 
   ngOnChanges(): void {
@@ -69,6 +66,13 @@ export class Courses implements OnChanges, OnInit {
     );
   }
 
+  loadCourses(): void {
+    this.apiCoursesService.getAllCourses().subscribe((res) => {
+      this.courses.set(res);
+      this.filterCourses();
+    });
+  }
+
   register(course: ICourse) {
     if (course.seats > 0) {
       this.totalPrice += course.price;
@@ -87,5 +91,25 @@ export class Courses implements OnChanges, OnInit {
 
   navigateToDetails(id: number | string) {
     this.router.navigateByUrl(`/details/${id}`);
+  }
+
+  navigateToAddCourse(): void {
+    this.router.navigateByUrl('/courses/new');
+  }
+
+  navigateToEditCourse(id: number | string): void {
+    this.router.navigateByUrl(`/courses/edit/${id}`);
+  }
+
+  deleteCourse(id: string): void {
+    this.apiCoursesService.deleteCourse(id).subscribe({
+      next: () => {
+        this.courses.update((courses) => courses.filter((course) => course.id !== id));
+        this.filterCourses();
+      },
+      error: (err) => {
+        console.error('Error deleting course:', err);
+      },
+    });
   }
 }
